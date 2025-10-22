@@ -1,9 +1,9 @@
 import React from 'react';
 import { MqttProvider, useMqtt } from './context/MqttContext';
 import { useResponsive, useAccordion } from './hooks';
-import { Header, Section } from './components/Layout';
-import { CommandLog } from './components/Common';
-import { AccessButtons } from './components/Access';
+import { Header, Section } from './components/Layout/index';
+import { CommandLog } from './components/Common/index';
+import { AccessButtons } from './components/Access/index';
 import { IndoorLights, OutdoorLights } from './components/Lights';
 import { ManualControls } from './components/Controls';
 
