@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Clock, Calendar } from 'lucide-react';
+import { Clock, Calendar, Grid } from 'lucide-react';
 import { Button, Toggle } from '../Common';
 import { useMqtt } from '../../hooks';
+import WeeklyScheduleGrid from './WeeklyScheduleGrid';
 
 // Template orari predefiniti
 const TEMPLATES = {
@@ -73,6 +74,7 @@ const daysToBitmask = (daysArray) => {
 const ScheduleConfig = ({ device, deviceName }) => {
   const { sendScheduleConfig, connected } = useMqtt();
   
+  const [showGrid, setShowGrid] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [customMode, setCustomMode] = useState(false);
   const [days, setDays] = useState([false, true, true, true, true, true, false]);
@@ -139,6 +141,30 @@ const ScheduleConfig = ({ device, deviceName }) => {
         <div>
           <h3 className="text-lg font-bold text-gray-800">{deviceName}</h3>
           <p className="text-sm text-gray-600">Programmazione orari settimanali</p>
+        </div>
+      </div>
+
+      {/* Pulsante Griglia Avanzata */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Grid className="w-8 h-8 text-primary" />
+            <div>
+              <h4 className="font-bold text-gray-800">Programmazione Avanzata</h4>
+              <p className="text-sm text-gray-600">
+                Configura orari diversi per ogni giorno con precisione di 15 minuti
+              </p>
+            </div>
+          </div>
+          <Button
+            variant="primary"
+            onClick={() => setShowGrid(true)}
+            disabled={!connected}
+            className="px-6"
+          >
+            <Grid className="w-4 h-4" />
+            <span>Apri Griglia</span>
+          </Button>
         </div>
       </div>
 
@@ -300,6 +326,15 @@ const ScheduleConfig = ({ device, deviceName }) => {
           I controlli manuali hanno sempre priorità sulla programmazione.
         </p>
       </div>
+
+      {/* Popup Griglia Avanzata */}
+      {showGrid && (
+        <WeeklyScheduleGrid
+          device={device}
+          deviceName={deviceName}
+          onClose={() => setShowGrid(false)}
+        />
+      )}
     </div>
   );
 };

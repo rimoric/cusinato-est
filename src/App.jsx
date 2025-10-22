@@ -1,11 +1,11 @@
 import React from 'react';
 import { MqttProvider, useMqtt } from './context/MqttContext';
 import { useResponsive, useAccordion } from './hooks';
-import { Header, Section } from './components/Layout/index';
-import { CommandLog } from './components/Common/index';
-import { AccessButtons } from './components/Access/index';
+import { Header, Section } from './components/Layout';
+import { CommandLog } from './components/Common';
+import { AccessButtons } from './components/Access';
 import { IndoorLights, OutdoorLights } from './components/Lights';
-import { ManualControls } from './components/Controls';
+import { ManualControls, ScheduleConfig } from './components/Controls';
 
 /**
  * Componente Dashboard principale
@@ -16,7 +16,7 @@ const Dashboard = () => {
   
   // Gestione accordion per mobile
   const { isOpen, toggleSection } = useAccordion(
-    ['access', 'lights-indoor', 'lights-outdoor', 'controls'],
+    ['access', 'lights-indoor', 'lights-outdoor', 'controls', 'schedule-caldaia', 'schedule-compressore'],
     ['access', 'lights-indoor'] // Apri di default Accessi e Luci Interne
   );
 
@@ -73,6 +73,28 @@ const Dashboard = () => {
           isMobile={isMobile}
         >
           <OutdoorLights />
+        </Section>
+
+        {/* Sezione Programmazione Caldaia */}
+        <Section
+          title="Programmazione Caldaia"
+          icon="🕐"
+          isOpen={isOpen('schedule-caldaia')}
+          onToggle={() => toggleSection('schedule-caldaia')}
+          isMobile={isMobile}
+        >
+          <ScheduleConfig device="Cald" deviceName="Caldaia" />
+        </Section>
+
+        {/* Sezione Programmazione Compressore */}
+        <Section
+          title="Programmazione Compressore"
+          icon="🕐"
+          isOpen={isOpen('schedule-compressore')}
+          onToggle={() => toggleSection('schedule-compressore')}
+          isMobile={isMobile}
+        >
+          <ScheduleConfig device="Comp" deviceName="Compressore" />
         </Section>
 
         {/* Log Comandi */}
