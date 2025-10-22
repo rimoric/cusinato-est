@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer components {
+  .section-card {
+    @apply bg-white rounded-lg shadow-md p-6 mb-4;
+  }
+  
+  .btn-base {
+    @apply px-4 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out;
+  }
+  
+  .btn-inactive {
+    @apply bg-gray-200 text-gray-600 hover:bg-gray-300;
+  }
+  
+  .btn-active {
+    @apply bg-success text-white shadow-active;
+  }
+  
+  .btn-access {
+    @apply btn-base bg-primary text-white hover:bg-blue-700 active:scale-95;
+  }
+  
+  .toggle-switch {
+    @apply relative inline-block w-14 h-8;
+  }
+  
+  .toggle-slider {
+    @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300;
+  }
+  
+  .toggle-slider:before {
+    @apply absolute content-[''] h-6 w-6 left-1 bottom-1 bg-white rounded-full transition-all duration-300;
+  }
+  
+  input:checked + .toggle-slider {
+    @apply bg-success;
+  }
+  
+  input:checked + .toggle-slider:before {
+    @apply transform translate-x-6;
+  }
+}
