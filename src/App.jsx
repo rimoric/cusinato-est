@@ -5,7 +5,7 @@ import { Header, Section } from './components/Layout';
 import { CommandLog } from './components/Common';
 import { AccessButtons } from './components/Access';
 import { IndoorLights, OutdoorLights } from './components/Lights';
-import { ManualControls, ScheduleConfig } from './components/Controls';
+import { UnifiedControls } from './components/Controls';
 
 /**
  * Componente Dashboard principale
@@ -16,7 +16,7 @@ const Dashboard = () => {
   
   // Gestione accordion per mobile
   const { isOpen, toggleSection } = useAccordion(
-    ['access', 'lights-indoor', 'lights-outdoor', 'controls', 'schedule-caldaia', 'schedule-compressore'],
+    ['access', 'lights-indoor', 'controls', 'lights-outdoor'],
     ['access', 'lights-indoor'] // Apri di default Accessi e Luci Interne
   );
 
@@ -51,19 +51,19 @@ const Dashboard = () => {
           <IndoorLights />
         </Section>
 
-        {/* Sezione Controlli Manuali */}
+        {/* Sezione Controlli e Programmazione (Unificata) */}
         <Section
-          title="Controlli Manuali"
+          title="Controlli e Programmazione"
           icon="⚙️"
           count={3}
           isOpen={isOpen('controls')}
           onToggle={() => toggleSection('controls')}
           isMobile={isMobile}
         >
-          <ManualControls />
+          <UnifiedControls />
         </Section>
 
-        {/* Sezione Luci Esterne (FASE 2) */}
+        {/* Sezione Luci Esterne */}
         <Section
           title="Luci Esterne"
           icon="🌆"
@@ -73,28 +73,6 @@ const Dashboard = () => {
           isMobile={isMobile}
         >
           <OutdoorLights />
-        </Section>
-
-        {/* Sezione Programmazione Caldaia */}
-        <Section
-          title="Programmazione Caldaia"
-          icon="🕐"
-          isOpen={isOpen('schedule-caldaia')}
-          onToggle={() => toggleSection('schedule-caldaia')}
-          isMobile={isMobile}
-        >
-          <ScheduleConfig device="Cald" deviceName="Caldaia" />
-        </Section>
-
-        {/* Sezione Programmazione Compressore */}
-        <Section
-          title="Programmazione Compressore"
-          icon="🕐"
-          isOpen={isOpen('schedule-compressore')}
-          onToggle={() => toggleSection('schedule-compressore')}
-          isMobile={isMobile}
-        >
-          <ScheduleConfig device="Comp" deviceName="Compressore" />
         </Section>
 
         {/* Log Comandi */}
